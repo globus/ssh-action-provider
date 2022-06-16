@@ -1,0 +1,47 @@
+TODO change from old sandbox URLs and scope depedencies
+
+globus-automate action introspect --action-url https://sandbox.actions.automate.globus.org/hello_world
+globus-automate action introspect --action-url https://actions.globus.org/hello_world
+
+##########
+ac3 = ac.get('/v2/api/scopes/e6a8eb53-91f6-4f06-a1a4-41661b49a7de')
+mod['scope']['dependent_scopes'].append({'optional':False,'requires_refresh_token': True,'scope':'c54954bf-e3d870a0bb201f6'})
+ac.put('/v2/api/scopes/e6a8eb53-91f6-4f06-a1a4-41661b49a7de',json_body=acmod)
+
+###
+[ { 'advertised': True,
+    'allows_refresh_token': True,
+    'client': '9f2a3343-7f34-4d24-b2bf-9504118b9b1f',
+    'dependent_scopes': [],
+    'description': 'ssh.globustest.org SSH Server scope',
+    'id': '4c917f4e-9b38-49c3-a1b3-bc81cf79ae64',
+    'name': 'ssh.globustest.org SSH Server',
+    'required_domains': [],
+    'scope_string': 'https://auth.globus.org/scopes/9f2a3343-7f34-4d24-b2bf-9504118b9b1f/all'},
+  { 'advertised': True,
+    'allows_refresh_token': True,
+    'client': '9f2a3343-7f34-4d24-b2bf-9504118b9b1f',
+    'dependent_scopes': [],
+    'description': 'ssh.globustest.org SSH Server scope',
+    'id': 'c54954bf-e3da-4ca5-bab1-870a0bb201f6',
+    'name': 'ssh.globustest.org SSH Server',
+    'required_domains': [],
+    'scope_string': 'https://auth.globus.org/scopes/ssh.globustest.org/all'},
+  { 'advertised': True,
+    'allows_refresh_token': True,
+    'client': '9f2a3343-7f34-4d24-b2bf-9504118b9b1f',
+    'dependent_scopes': [],
+    'description': 'ssh.globustest.org SSH Server scope',
+    'id': 'ea23139a-4919-4b25-a513-8831fabbd88f',
+    'name': 'ssh.globustest.org SSH Server',
+    'required_domains': [],
+    'scope_string': 'https://auth.globus.org/scopes/ssh.globustest.org/ssh'},
+  { 'advertised': True,
+    'allows_refresh_token': True,
+    'client': '9f2a3343-7f34-4d24-b2bf-9504118b9b1f',
+    'dependent_scopes': [],
+    'description': 'ssh.globustest.org SSH Server scope',
+    'id': 'bd19a2a2-c6ce-4356-9871-19d9f579d791',
+    'name': 'ssh.globustest.org SSH Server',
+    'required_domains': [],
+    'scope_string': 'https://auth.globus.org/scopes/9f2a3343-7f34-4d24-b2bf-9504118b9b1f/ssh'}]

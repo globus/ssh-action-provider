@@ -1,0 +1,118 @@
+{
+  "States": {
+    "DoTransfer": {
+      "Next": "AllComplete",
+      "Type": "Action",
+      "Catch": [
+        {
+          "Next": "AllComplete",
+          "ResultPath": "$.UserState.TransferErrorResult",
+          "ErrorEquals": [
+            "ActionUnableToRun",
+            "ActionFailedException",
+            "ActionTimeout"
+          ]
+        }
+      ],
+      "Comment": "Run transfer operation",
+      "WaitTime": 86400,
+      "ActionUrl": "https://actions.globus.org/transfer/transfer",
+      "InputPath": "$.TransferInput",
+      "ResultPath": "$.TransferResult",
+      "ExceptionOnActionFailure": true
+    },
+    "AllComplete": {
+      "End": true,
+      "Type": "Pass",
+      "Comment": "Normal completion, report success",
+      "Parameters": {
+        "message": "SSH commands completed"
+      },
+      "ResultPath": "$.FlowResult"
+    },
+    "CheckInput02": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Or": [
+            {
+              "Variable": "$.ssh_command_02",
+              "IsPresent": false
+            },
+            {
+              "IsNull": true,
+              "Variable": "$.ssh_command_02"
+            }
+          ],
+          "Next": "DoTransfer"
+        }
+      ],
+      "Comment": "Check if SSH command #2 input is provided",
+      "Default": "RunCommand02"
+    },
+    "RunCommand01": {
+      "Next": "CheckInput02",
+      "Type": "Action",
+      "Catch": [
+        {
+          "Next": "CheckInput02",
+          "ResultPath": "$.UserState.RunCommand01ErrorResult",
+          "ErrorEquals": [
+            "ActionUnableToRun",
+            "ActionFailedException",
+            "ActionTimeout"
+          ]
+        }
+      ],
+      "Comment": "Execute command #1 on remote server",
+      "ActionUrl": "https://actions.globus.org/ssh",
+      "Parameters": {
+        "command.$": "$.ssh_command_01",
+        "ssh_server.$": "$.ssh_server"
+      },
+      "ResultPath": "$.Output01"
+    },
+    "RunCommand02": {
+      "Next": "SetupTransferInput",
+      "Type": "Action",
+      "Catch": [
+        {
+          "Next": "SetupTransferInput",
+          "ResultPath": "$.UserState.RunCommand02ErrorResult",
+          "ErrorEquals": [
+            "ActionUnableToRun",
+            "ActionFailedException",
+            "ActionTimeout"
+          ]
+        }
+      ],
+      "Comment": "Execute command #2 on remote server",
+      "ActionUrl": "https://my.ssh.example.server.orgs/ssh",
+      "Parameters": {
+        "command.$": "$.ssh_command_02",
+        "ssh_server.$": "$.ssh_server"
+      },
+      "ResultPath": "$.Output02"
+    },
+    "SetupTransferInput": {
+      "Next": "DoTransfer",
+      "Type": "ExpressionEval",
+      "Comment": "Set up the input for globus transfer",
+      "Parameters": {
+        "label": "Setup for Transfer operation",
+        "transfer_items": [
+          {
+            "source_path.$": "$.source_collection.path",
+            "destination_path.$": "$.destination_collection.path"
+          }
+        ],
+        "skip_source_errors": true,
+        "source_endpoint_id.$": "$.source_collection.id",
+        "destination_endpoint_id.$": "$.destination_collection.id"
+      },
+      "ResultPath": "$.TransferInput"
+    }
+  },
+  "Comment": "A flow to run commands via SSH Action Provider then do a globus transfer",
+  "StartAt": "RunCommand01"
+}

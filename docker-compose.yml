@@ -1,0 +1,11 @@
+version: '1'
+services:
+    web:
+        build: .
+        ports:
+            - "8000:8000"
+        environment:
+            - SSH_AP_CLIENT_ID=${SSH_AP_CLIENT_ID}
+            - SSH_AP_CLIENT_SECRET=${SSH_AP_CLIENT_SECRET}
+        volumes:
+            - .:/

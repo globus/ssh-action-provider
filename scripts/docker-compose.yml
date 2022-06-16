@@ -1,0 +1,4 @@
+version: "3.7"
+services:
+  # Previously postgres/dynamo but now only using sqlite3
+  # TBD other dependency spinup
