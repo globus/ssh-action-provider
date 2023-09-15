@@ -1,0 +1,78 @@
+{
+  "required": [
+    "ssh_server",
+    "ssh_command_01",
+    "source_collection",
+    "destination_collection"
+  ],
+  "properties": {
+    "ssh_server": {
+      "type": "string",
+      "title": "Hostname of remote OAUTH SSH server",
+      "description": "The hostname of the server ie. my.remote.server.org"
+    },
+    "ssh_command_01": {
+      "type": "string",
+      "title": "SSH command #1 to execute on remote server",
+      "description": "Command to remotely execute on the SSH server"
+    },
+    "ssh_command_02": {
+      "type": "string",
+      "title": "SSH command #2 to execute on remote server",
+      "description": "Optional Command #2 to remotely execute"
+    },
+    "source_collection": {
+      "type": "object",
+      "title": "Source Collection",
+      "format": "globus-collection",
+      "required": [
+        "id",
+        "path"
+      ],
+      "properties": {
+        "id": {
+          "title": "Source Collection ID",
+          "format": "uuid",
+          "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+          "maxLength": 36,
+          "minLength": 36,
+          "description": "The UUID for the collection on the OAuth SSH Server"
+        },
+        "path": {
+          "type": "string",
+          "title": "Source Collection Path",
+          "description": "The file path on the source collection of the Oauth-SSH server"
+        }
+      },
+      "description": "Source collection co-hosted on the SSH server to transfer from",
+      "additionalProperties": false
+    },
+    "destination_collection": {
+      "type": "object",
+      "title": "Destination Collection",
+      "format": "globus-collection",
+      "required": [
+        "id",
+        "path"
+      ],
+      "properties": {
+        "id": {
+          "title": "Destination Collection ID",
+          "format": "uuid",
+          "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+          "maxLength": 36,
+          "minLength": 36,
+          "description": "The UUID for the destination collection"
+        },
+        "path": {
+          "type": "string",
+          "title": "Destination Collection Path",
+          "description": "The destination file path to transfer to"
+        }
+      },
+      "description": "Destination collection for the transfer",
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "ssh-action-provider"
+version = "0.2.0"
+description = "OAuth SSH Globus Example Action Provider Using action-provider-tools"
+authors = ["Lei Wang <lei@globus.org>"]
+
+[tool.poetry.dependencies]
+python = ">=3.7.2,<4.0"
+types-requests = "^2.25.6"
+globus-action-provider-tools = "0.11.5"
+logging3 = "^0.0.2"
+DateTime = "^4.5"
+arrow = "^1.2.2"
+typer = {extras = ["all"], version = "^0.4.1"}
+typing-extensions = "^4.1.1"
+pysqlite3 = "^0.4.7"
+pytest = "^7.1.2"
+paramiko = "^2.11.0"
+structlog = "^21.1.0"
+Flask = "^2.2.2"
+dill = "^0.3.5"
+pytz = "*"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
