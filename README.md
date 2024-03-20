@@ -1,6 +1,11 @@
 SSH Action Provider
 ===================
 
+> [!Note]
+> 
+> The code in this repository is a proof-of-concept.
+> It is not currently supported by Globus.
+
 Overview
 --------
 
